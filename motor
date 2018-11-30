@@ -1,0 +1,43 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 10/24/2018 11:21:12 AM
+// Design Name: 
+// Module Name: motor
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module motor(
+        input clk,
+        input [1:0] sw,
+        output reg [3:0] direction
+    );
+        
+    
+    always @(posedge clk)
+        begin
+                case(sw)
+                    // forward
+                    2'b00: direction = 4'b1001;
+                    // left
+                    2'b01: direction = 4'b0101;
+                    // right 
+                    2'b10: direction = 4'b1010;
+                    // backward
+                    2'b11: direction = 4'b0110;
+                endcase
+        end
+endmodule
