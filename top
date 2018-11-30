@@ -1,0 +1,46 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 10/24/2018 11:21:31 AM
+// Design Name: 
+// Module Name: top
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module top(
+        input clk,
+        input [1:0] sw,
+        output IN1, IN2, IN3, IN4,
+        output ENA, ENB
+    );
+    
+    wire [3:0] IN_bus;
+    assign {IN1,IN2,IN3,IN4} = IN_bus;
+    wire [7:0] power;
+    assign power = 8'd128;
+    pwm pwm_pulse_L (.clk(clk),
+                     .power(power),
+                     .pwm_output(ENA));
+                   
+    pwm pwm_pulse_R (.clk(clk),
+                     .power(power),
+                     .pwm_output(ENB));
+                   
+    motor motor_control (.clk(clk),
+                         .sw(sw),
+                         .direction(IN_bus));
+    
+endmodule
