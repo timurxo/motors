@@ -1,0 +1,38 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// allow the control of the power supplied to electrical devices, especially to inertial loads such as motors
+// 
+
+// The term duty cycle describes the proportion of 'on' time to the regular interval or 'period' of 
+// time; a low duty cycle corresponds to low power, because the power is off for most of the time. Duty cycle is 
+// expressed in percent, 100% being fully on. When a digital signal is on half of the time and off the other half of the time, 
+// the digital signal has a duty cycle of 50% and resembles a "square" wave. When a digital signal spends more time in the on 
+// state than the off state, it has a duty cycle of >50%. When a digital signal spends more time in the off state than 
+// the on state, it has a duty cycle of <50%
+//////////////////////////////////////////////////////////////////////////////////
+
+// control of the power supplied to motors
+
+module pwm(
+    input clk,
+    input [7:0] power,
+    
+    output reg pwm_output =0
+    );
+    
+    reg [7:0] counter = 0;
+    
+    always@ (posedge clk)
+        begin
+            // start counter
+            counter <= counter + 1;
+            
+            // if count less then duty -> 1
+            if (counter <= power)
+                pwm_output <= 1;
+                
+            // otherwise -> 0    
+            else
+                pwm_output <= 0;
+        end       
+endmodule
